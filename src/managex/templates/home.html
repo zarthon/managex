@@ -7,8 +7,17 @@
 </div>
 {% else %}
 <div>
+    <a href="/home/" id="home">Home</a>
     <a href="/addfriend/" id="addfirend">AddFriend</a>
     <a href="/addexpense" id="addexpense">AddExpense</a>
 </div>
+<div>
+    {% for key, value in  wall.items %}
+    <div>{{ key }}<div>
+    {% for val in value %}
+    <div>{{ val.amount }}<div>
+    {% endfor %}
+    {% endfor %}
+</div>   
 {% endif %}
 {% endblock %}

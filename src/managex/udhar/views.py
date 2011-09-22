@@ -62,17 +62,21 @@ def addExpense(request):
            return HttpResponseRedirect('/home')
        else:
            return render_to_response("addexpense.html",{'addexpense_form':form,'addexpense':True,'data':request.POST},context_instance=RequestContext(request))
+    else:
+        return render_to_response("ShowMessage.html",{'msg_heading':'Error','msg_html':'User is an ADMIN'},context_instance=RequestContext(request)) 
+
 
 @login_required
 def home(request):
     if request.user.is_authenticated() and request.user.username != "admin":
-        friend_list = Friends.objects.all()
-        wall = []
+        friend_list = Friends.objects.filter(friendof = request.user)
+        wall = {}
         borrow_list = None
         if friend_list is not None:
             for friend in friend_list:
-                borrow_list = BorrowList.objects.all()
-            wall.append(borrow_list)
+                borrow_list = BorrowList.objects.filter(friend = friend)
+                wall[str(friend.twitter_user)] = borrow_list
+        print wall
         print "None"
     else:
         return render_to_response("ShowMessage.html",{'msg_heading':'Error','msg_html':'User is an ADMIN'},context_instance=RequestContext(request)) 
