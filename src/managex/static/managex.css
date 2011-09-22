@@ -1,0 +1,173 @@
+/*default attributes for elements*/
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, textarea, p, blockquote, th, td {margin: 0; padding: 0;}
+table {border-collapse: collapse; border-spacing: 0;}
+fieldset, img {border: 0;}
+address, caption, cite, code, dfn, em, strong, th, var {font-style: normal;}
+ol, ul {list-style: none;}
+caption, th {text-align: left;}
+h1, h2, h3, h4, h5, h6 {font-size: 100%; font-weight:bold;}
+abbr, acronym {border: 0;}
+
+body {
+    font: 62.5% Verdana;
+	background-color:#FEFEFE;
+	
+}
+
+/* clearfix is used for forms */
+.clearfix:after { 
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.clearfix {
+	display:inline;
+}
+
+* html .clearfix {height: 1%;}
+
+.clearfix {
+	display:block;
+	outline-style:none;
+}
+
+/* used for setting the width of the page */
+.frame {
+	width: 800px;
+	margin: 0 auto;
+}
+
+/* error attributes on forms*/
+.error {
+  padding: 10px !important;
+  background-color: #EEC7C7;
+  font-size: 1.1em;
+  font-style: italic;
+  margin: 10px !important;
+}
+
+/* hidden classes */
+.hide{
+	display:none;
+}
+
+/* base.html header class */
+#header {
+    padding-bottom: 25px;
+	height:60px;
+	margin-bottom: 30px;
+}
+
+/* form label characteristics */
+#username label{
+	margin-right:70px;
+}
+
+#password label{
+	margin-right:73px;
+}
+
+/* login-signup form div box background */
+#login-signup, #logged-in {
+  background-color: #EEEEEE;
+}
+
+/* authuentication form background */
+#auth-page {
+  padding: 50px 0;
+}
+
+/* auth page and login-signup page charateristics */
+#auth-page #login-signup {
+  width: 296px;
+  margin: 0 auto;
+}
+
+/* login-signup subheading */
+#login-signup h3 {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #474747;
+  padding: 20px;
+}
+
+/* login signup anchor tag */
+#login-signup h3 a {
+  color: #528936;
+  text-decoration: none;
+}
+
+/* login signup span class */
+#login-signup h3 span {
+  background: url('/pycourt/login-active.gif') bottom center no-repeat;
+  padding-bottom: 14px;
+}
+
+/* login signup on hover */
+#login-signup h3 a:hover {
+  color: #416D2A;
+}
+
+/* login-signup container */
+#login-signup div {
+  padding: 5px 10px;
+  margin: 0 10px;
+}
+
+/* login-signup label characteristics */
+#login-signup label {
+  float: left;
+  width: 100px;
+  font-size: 1.4em;
+  padding-top: 4px;
+}
+
+/* login signup input box */
+#login-signup input {
+  float: left;
+  width: 149px;
+}
+
+/* login signup on submit charactristic change */
+#login-signup div.submit {
+  padding: 0;
+  padding-left: 0px;
+ }
+
+/* login signup container on sibmit input box */
+#login-signup div.submit input {
+  width: auto;
+    margin-bottom: 20px;
+}
+
+
+/* wrong password characteristics */
+#wrong_password{
+	background-color:#EEEEEE;
+}
+
+/* base.html footer characteristics */
+#footer {
+    font-style: italic;
+    color: #8D8D8D;
+    font-size: 1.1em;
+    padding-bottom: 15px;
+	width: 100%;
+	text-align: center;
+}
+
+
+
+#footer-inner {
+    background-color: #EEEEEE;
+    padding: 10px;
+	width: 100%;
+}
+
+
+
+
