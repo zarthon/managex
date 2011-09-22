@@ -1,11 +1,36 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
-from udhar.models import Friends
+from udhar.models import *
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length = 10)
     password = forms.CharField(widget = forms.PasswordInput)
+
+class AddExpenseForm(forms.ModelForm):
+    friend = forms.CharField(max_length = 50)
+    amount = forms.IntegerField()
+    class Meta:
+        model = BorrowList
+        fields = ('amount',)
+    def clean_friend(self):
+        friend = self.cleaned_data["friend"]
+        print friend
+        try:
+            friend = Friends.objects.get(twitter_user = friend)
+        except Friends.DoesNotExist:
+            raise forms.ValidationError(_("A friend with this twitter username doesnot exists. "))
+        return friend.twitter_user
+
+    def save(self, commit=True):
+        friend = super(AddExpenseForm,self).save(commit=False)
+        friend.amount = int(self.cleaned_data["amount"])
+        print self.cleaned_data["friend"]
+        friend.friend = Friends.objects.get(twitter_user = self.cleaned_data["friend"])
+        if commit:
+            friend.save()
+        return friend
+
 
 class AddFriendForm(forms.ModelForm):
     first_name = forms.CharField(max_length = 50)

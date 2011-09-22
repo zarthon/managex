@@ -1,4 +1,5 @@
-<form action="/login/" method="post" id="login-form"{% if addfriend %} style="display: none;"{% endif %} {% if signup %} style="display: none;"{% endif %}>
+<form action="/login/" method="post" id="login-form"{% if addfriend %} style="display: none;"{% endif %} {% if signup %}
+    style="display: none;"{% endif %}{% if addexpense %} style="display: none;"{% endif %} >
 
 	<!-- Login form -->
     {% if form.errors and data %}
@@ -71,6 +72,22 @@
 </div>
 
 
+  <div id="signup-submit" class="submit clearfix">
+    <input type="submit" value="Add" class="submit" />
+  </div>
+</form>
+<form action="/addexpense/" method="post" id="addexpense-form"{% if not addexpense %} style="display: none;"{% endif %}>
+    {% csrf_token %}
+     {% if addexpense_form.friend.errors and data %}<div class="error">{{ addexpense_form.friend.errors }}</div>{% endif %}
+  <div id="addexpense-first_name" class="clearfix">
+    <label for="friend">Friend Twitter Name:</label>
+    <input id="friend" type="text" name="friend" value="{{ data.friend }}" />
+  </div>
+  {% if addexpense_form.amount.errors and data %}<div class="error">{{ addexpense_form.amount.errors }}</div>{% endif %}
+  <div id="addexpense-amount" class="clearfix">
+    <label for="amount">Amount:</label>
+    <input id="amount" type="int" name="amount" value="{{ data.amount }}" />
+  </div>
   <div id="signup-submit" class="submit clearfix">
     <input type="submit" value="Add" class="submit" />
   </div>

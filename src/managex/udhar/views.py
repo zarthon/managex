@@ -49,24 +49,23 @@ def addFriend(request):
     print form.is_valid()
     if form.is_valid():
         form.save()
-        return HttpResponse('/home')
+        return HttpResponseRedirect('/home')
     else:
         return render_to_response("addfriend.html",{'addfriend_form':form,'addfriend':True,'data':request.POST},context_instance=RequestContext(request))
 
 @login_required
 def addExpense(request):
-    pass
+    if request.user.is_authenticated() and request.user.username != "admin":
+       form = myforms.AddExpenseForm(request.POST)
+       if form.is_valid():
+           form.save()
+           return HttpResponseRedirect('/home')
+       else:
+           return render_to_response("addexpense.html",{'addexpense_form':form,'addexpense':True,'data':request.POST},context_instance=RequestContext(request))
 
 @login_required
 def home(request):
-    users = User.objects.all()
-    user=None
-    for u in users:
-	    if u.username == request.user.username:
-			user = u
-    if request.user.is_authenticated():
-        if user is None:
-            return render_to_response("ShowMessage.html",{'msg_heading':'Error','msg_html':'User is an ADMIN'},context_instance=RequestContext(request)) 
+    if request.user.is_authenticated() and request.user.username != "admin":
         friend_list = Friends.objects.all()
         wall = []
         borrow_list = None
@@ -75,5 +74,7 @@ def home(request):
                 borrow_list = BorrowList.objects.all()
             wall.append(borrow_list)
         print "None"
+    else:
+        return render_to_response("ShowMessage.html",{'msg_heading':'Error','msg_html':'User is an ADMIN'},context_instance=RequestContext(request)) 
     return render_to_response("home.html",locals(),context_instance=RequestContext(request))
 
