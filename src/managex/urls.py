@@ -5,9 +5,12 @@ from django.conf import settings
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns('managex.udhar',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$','managex.udhar.views.login')
+    url(r'^$','views.index'),
+    url(r'^login/','views.login'),
+    url(r'^logout/','views.logout'),
+    url(r'^signup/','views.register')
 )
 
 urlpatterns += patterns('',(r'^managex/(?P<path>.*)$', 'django.views.static.serve', {'document_root':settings.MEDIA_ROOT}),)
