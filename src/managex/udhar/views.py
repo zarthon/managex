@@ -3,10 +3,12 @@ from udhar import forms as myforms
 from django.http import *
 from django.shortcuts import *
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.decorators import login_required 
+from udhar.models import *
 
 def index(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('/logout')
+        return HttpResponseRedirect('/home')
     else:
         return HttpResponseRedirect('/login')
 
@@ -17,7 +19,7 @@ def login(request):
             user = authenticate(username=request.POST["username"],password=request.POST["password"])
             if user is not None:
                 auth_login(request,user)
-                return HttpResponseRedirect("/logout")
+                return HttpResponseRedirect("/home")
             else:
                 return HttpResponse('wrong.html',{},context_instance=RequestContext(request))
         else:
@@ -40,6 +42,38 @@ def register(request):
 		else:
 			return render_to_response("signup.html",{'signup_form':form,'signup':True,'data':request.POST},context_instance=RequestContext(request))
 
+@login_required
+def addFriend(request):
+    form = myforms.AddFriendForm(request.POST)
+    print type(request.POST)
+    print form.is_valid()
+    if form.is_valid():
+        form.save()
+        return HttpResponse('/home')
+    else:
+        return render_to_response("addfriend.html",{'addfriend_form':form,'addfriend':True,'data':request.POST},context_instance=RequestContext(request))
 
-def home(request):
+@login_required
+def addExpense(request):
     pass
+
+@login_required
+def home(request):
+    users = User.objects.all()
+    user=None
+    for u in users:
+	    if u.username == request.user.username:
+			user = u
+    if request.user.is_authenticated():
+        if user is None:
+            return render_to_response("ShowMessage.html",{'msg_heading':'Error','msg_html':'User is an ADMIN'},context_instance=RequestContext(request)) 
+        friend_list = Friends.objects.all()
+        wall = []
+        borrow_list = None
+        if friend_list is not None:
+            for friend in friend_list:
+                borrow_list = BorrowList.objects.all()
+            wall.append(borrow_list)
+        print "None"
+    return render_to_response("home.html",locals(),context_instance=RequestContext(request))
+

@@ -1,4 +1,4 @@
-<form action="/login/" method="post" id="login-form"{% if forget %} style="display: none;"{% endif %} {% if signup %} style="display: none;"{% endif %} {% if reset %} style="display: none;"{% endif %}>
+<form action="/login/" method="post" id="login-form"{% if addfriend %} style="display: none;"{% endif %} {% if signup %} style="display: none;"{% endif %}>
 
 	<!-- Login form -->
     {% if form.errors and data %}
@@ -46,6 +46,33 @@
   </div>
   <div id="signup-submit" class="submit clearfix">
     <input type="submit" value="Signup" class="submit" />
+  </div>
+</form>
+
+<form action="/addfriend/" method="post" id="addfriend-form"{% if not addfriend %} style="display: none;"{% endif %}>
+    {% csrf_token %}
+     {% if addfriend_form.first_name.errors and data %}<div class="error">{{ addfriend_form.first_name.errors }}</div>{% endif %}
+  <div id="addfriend-first_name" class="clearfix">
+    <label for="first_name">First Name:</label>
+    <input id="first_name" type="text" name="first_name" value="{{ data.first_name }}" />
+  </div>
+  {% if addfriend_form.last_name.errors and data %}<div class="error">{{ addfriend_form.last_name.errors }}</div>{% endif %}
+  <div id="addfriend-last_name" class="clearfix">
+    <label for="last_name">Last Name:</label>
+    <input id="last_name" type="text" name="last_name" value="{{ data.last_name }}" />
+  </div>
+  {% if addfriend_form.twitter_username.errors and data %}<div class="error">{{ addfriend_form.twitter_username.errors }}</div>{% endif %}
+  <div id="addfriend-twitter_username" class="clearfix">
+    <label for="twitter_username">Twitter Username:</label>
+    <input id="twitter_username" name="twitter_username" maxlength="60" value="{{ data.twitter_username }}"/>
+</div>
+ <div id="addfriend-friendof" style:"display: none;">
+    <input type="hidden" id="friendof" name="friendof" maxlength="60" value="{{ user.username }}"/>
+</div>
+
+
+  <div id="signup-submit" class="submit clearfix">
+    <input type="submit" value="Add" class="submit" />
   </div>
 </form>
 

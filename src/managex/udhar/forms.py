@@ -1,10 +1,40 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from udhar.models import Friends
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length = 10)
     password = forms.CharField(widget = forms.PasswordInput)
+
+class AddFriendForm(forms.ModelForm):
+    first_name = forms.CharField(max_length = 50)
+    last_name = forms.CharField(max_length = 50)
+    twitter_username = forms.CharField(max_length = 50)
+    friendof = forms.CharField(max_length = 50) 
+    class Meta:
+        model = Friends
+        fields = ('twitter_username',)
+    def clean_twitter_username(self):
+        twitter_username = self.cleaned_data["twitter_username"]
+        try:
+            friend = Friends.objects.get(twitter_user = twitter_username)
+        except Friends.DoesNotExist:
+            return twitter_username
+        raise forms.ValidationError(_("A friend with same twitter username already exists. "))
+
+    def save(self, commit=True):
+        friend = super(AddFriendForm,self).save(commit=False)
+        friend.first=(self.cleaned_data["first_name"])
+        friend.last = (self.cleaned_data["last_name"])
+        friend.twitter_user = (self.cleaned_data["twitter_username"])
+        friend.friendof = User.objects.get(username = self.cleaned_data["friendof"])
+        print friend.friendof
+        if commit:
+            friend.save()
+        return friend
+
+   
 
 class RegisterForm(forms.ModelForm):
     username = forms.CharField(max_length = 25)

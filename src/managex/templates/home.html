@@ -1,1 +1,14 @@
 {% extends "base.html" %}
+
+{% block content %}
+{% if not user.is_authenticated %}
+<div>
+{% include "login.html" %}
+</div>
+{% else %}
+<div>
+    <a href="/addfriend/" id="addfirend">AddFriend</a>
+    <a href="/addexpense" id="addexpense">AddExpense</a>
+</div>
+{% endif %}
+{% endblock %}
