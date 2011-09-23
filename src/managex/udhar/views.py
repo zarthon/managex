@@ -56,12 +56,14 @@ def addFriend(request):
 @login_required
 def addExpense(request):
     if request.user.is_authenticated() and request.user.username != "admin":
-       form = myforms.AddExpenseForm(request.POST)
-       if form.is_valid():
-           form.save()
-           return HttpResponseRedirect('/home')
-       else:
-           return render_to_response("addexpense.html",{'addexpense_form':form,'addexpense':True,'data':request.POST},context_instance=RequestContext(request))
+        friends = Friends.objects.filter(friendof=request.user)
+        print request.POST
+        form = myforms.AddExpenseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/home')
+        else:
+            return render_to_response("addexpense.html",{'addexpense_form':form,'addexpense':True,'data':request.POST,'friends':friends},context_instance=RequestContext(request))
     else:
         return render_to_response("ShowMessage.html",{'msg_heading':'Error','msg_html':'User is an ADMIN'},context_instance=RequestContext(request)) 
 

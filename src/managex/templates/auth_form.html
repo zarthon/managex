@@ -80,8 +80,11 @@
     {% csrf_token %}
      {% if addexpense_form.friend.errors and data %}<div class="error">{{ addexpense_form.friend.errors }}</div>{% endif %}
   <div id="addexpense-first_name" class="clearfix">
-    <label for="friend">Friend Twitter Name:</label>
-    <input id="friend" type="text" name="friend" value="{{ data.friend }}" />
+      <select name="friend" for="friend" id="friend">Friend Twitter Name:
+      {% for friend in friends %}
+      <option value="{{friend.twitter_user }}">{{friend.twitter_user}}</option>
+      {% endfor %}
+        </select>
   </div>
   {% if addexpense_form.amount.errors and data %}<div class="error">{{ addexpense_form.amount.errors }}</div>{% endif %}
   <div id="addexpense-amount" class="clearfix">

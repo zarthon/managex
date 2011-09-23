@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% if user.is_authenticated %}
+{% include "navigation.html" %}
 <div id="auth-page">
-        {% include "auth_form.html" %}
-</div>{% endblock %}
+    {% include "auth_form.html" %}
+</div>
+{% endif %}
+{% endblock %}
 
