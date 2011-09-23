@@ -76,11 +76,19 @@ def home(request):
         borrow_list = None
         if friend_list is not None:
             for friend in friend_list:
-                borrow_list = BorrowList.objects.filter(friend = friend)
-                wall[str(friend.twitter_user)] = borrow_list
-        print wall
-        print "None"
+                borrow_list = BorrowList.objects.filter(friend = friend).order_by('time').reverse()
+                _sum = 0
+                for borrow in borrow_list:
+                    _sum += borrow.amount
+                wall[(str(friend.first + " " + friend.last),_sum)] = borrow_list
     else:
         return render_to_response("ShowMessage.html",{'msg_heading':'Error','msg_html':'User is an ADMIN'},context_instance=RequestContext(request)) 
     return render_to_response("home.html",locals(),context_instance=RequestContext(request))
 
+@login_required
+def removeExpense(request):
+    print "inside removeexpense"
+    if request.method == "GET":
+        expenseid = request.GET["id"]
+        print expenseid
+        return HttpResponse("success")
