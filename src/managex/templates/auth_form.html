@@ -53,17 +53,17 @@
 <form action="/addfriend/" method="post" id="addfriend-form"{% if not addfriend %} style="display: none;"{% endif %}>
     {% csrf_token %}
      {% if addfriend_form.first_name.errors and data %}<div class="error">{{ addfriend_form.first_name.errors }}</div>{% endif %}
-  <div id="addfriend-first_name" class="clearfix">
+  <div id="addfriend-first_name" class="clearfix utilities">
     <label for="first_name">First Name:</label>
     <input id="first_name" type="text" name="first_name" value="{{ data.first_name }}" />
   </div>
   {% if addfriend_form.last_name.errors and data %}<div class="error">{{ addfriend_form.last_name.errors }}</div>{% endif %}
-  <div id="addfriend-last_name" class="clearfix">
+  <div id="addfriend-last_name" class="clearfix utilities">
     <label for="last_name">Last Name:</label>
     <input id="last_name" type="text" name="last_name" value="{{ data.last_name }}" />
   </div>
   {% if addfriend_form.twitter_username.errors and data %}<div class="error">{{ addfriend_form.twitter_username.errors }}</div>{% endif %}
-  <div id="addfriend-twitter_username" class="clearfix">
+  <div id="addfriend-twitter_username" class="clearfix utilities">
     <label for="twitter_username">Twitter Username:</label>
     <input id="twitter_username" name="twitter_username" maxlength="60" value="{{ data.twitter_username }}"/>
 </div>
@@ -72,26 +72,27 @@
 </div>
 
 
-  <div id="signup-submit" class="submit clearfix">
+  <div id="signup-submit" class="utilities clearfix">
     <input type="submit" value="Add" class="submit" />
   </div>
 </form>
 <form action="/addexpense/" method="post" id="addexpense-form"{% if not addexpense %} style="display: none;"{% endif %}>
     {% csrf_token %}
      {% if addexpense_form.friend.errors and data %}<div class="error">{{ addexpense_form.friend.errors }}</div>{% endif %}
-  <div id="addexpense-first_name" class="clearfix">
-      <select name="friend" for="friend" id="friend">Friend Twitter Name:
+     <div id="addexpense-first_name" class="clearfix utilities">
+         <label>Friend: </label>
+      <select name="friend" for="friend" id="friend">
       {% for friend in friends %}
       <option value="{{friend.twitter_user }}">{{friend.twitter_user}}</option>
       {% endfor %}
         </select>
   </div>
   {% if addexpense_form.amount.errors and data %}<div class="error">{{ addexpense_form.amount.errors }}</div>{% endif %}
-  <div id="addexpense-amount" class="clearfix">
+  <div id="addexpense-amount" class="clearfix utilities">
     <label for="amount">Amount:</label>
     <input id="amount" type="int" name="amount" value="{{ data.amount }}" />
   </div>
-  <div id="signup-submit" class="submit clearfix">
+  <div id="signup-submit" class="utilities clearfix">
     <input type="submit" value="Add" class="submit" />
   </div>
 </form>

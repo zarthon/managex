@@ -128,7 +128,13 @@ body a {
 	font-size:1.3em;
 }
 
-
+.utilities{
+    background-color:#EEEEEE;
+    margin-left:33px;
+    padding:3px; 
+    font-size:1.3em; 
+    padding-bottom:20px;
+}
 /* base.html header class */
 #header {
     padding-bottom: 25px;
@@ -165,7 +171,7 @@ body a {
 
 /* authuentication form background */
 #auth-page {
-  padding: 50px 0;
+  padding: 10px 0;
 }
 /* auth page and login-signup page charateristics */
 #auth-page #login-signup {

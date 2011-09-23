@@ -3,7 +3,8 @@
 {% block content %}
 {% if user.is_authenticated %}
 {% include "navigation.html" %}
-<div id="auth-page">
+<div id="auth-page" style="margin-top:60px">
+<b><label style = "background-color:#EEEEEE; margin-left:33px; padding:10px; font-size:1.3em;">Edit Profile</label></b>
     {% include "auth_form.html" %}
 </div>
 {% endif %}
