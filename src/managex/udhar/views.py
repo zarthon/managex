@@ -45,8 +45,6 @@ def register(request):
 @login_required
 def addFriend(request):
     form = myforms.AddFriendForm(request.POST)
-    print type(request.POST)
-    print form.is_valid()
     if form.is_valid():
         form.save()
         return HttpResponseRedirect('/home')
@@ -57,7 +55,6 @@ def addFriend(request):
 def addExpense(request):
     if request.user.is_authenticated() and request.user.username != "admin":
         friends = Friends.objects.filter(friendof=request.user)
-        print request.POST
         form = myforms.AddExpenseForm(request.POST)
         if form.is_valid():
             form.save()
@@ -87,12 +84,9 @@ def home(request):
 
 @login_required
 def removeExpense(request):
-    print "inside removeexpense"
     if request.method == "GET":
         expenseid = request.GET["id"]
         expense = BorrowList.objects.get(id=expenseid)
-        print expense.friend.friendof
-        print request.user.username
         if str(expense.friend.friendof) == str(request.user.username):
             expense.status = 1
             expense.save()

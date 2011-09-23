@@ -10,23 +10,24 @@ class LoginForm(forms.Form):
 class AddExpenseForm(forms.ModelForm):
     friend = forms.CharField(max_length = 50)
     amount = forms.IntegerField()
+    friendof = forms.CharField(max_length = 50)
     class Meta:
         model = BorrowList
         fields = ('amount',)
     def clean_friend(self):
-        friend = self.cleaned_data["friend"]
-        print friend
+        print self.cleaned_data
+        friend = self.cleaned_data["friend"].split("@")
         try:
-            friend = Friends.objects.get(twitter_user = friend)
+            friend = Friends.objects.get(id=friend[1],twitter_user = friend[0])
         except Friends.DoesNotExist:
             raise forms.ValidationError(_("A friend with this twitter username doesnot exists. "))
-        return friend.twitter_user
+        return str(friend.twitter_user)+"@"+str(friend.id)
 
     def save(self, commit=True):
         expense = super(AddExpenseForm,self).save(commit=False)
         expense.amount = int(self.cleaned_data["amount"])
-        print self.cleaned_data["friend"]
-        expense.friend = Friends.objects.get(twitter_user = self.cleaned_data["friend"])
+        temp = self.cleaned_data["friend"].split("@")
+        expense.friend = Friends.objects.get(twitter_user = temp[0],id=temp[1])
         expense.status = 0
         if commit:
             expense.save()
@@ -35,27 +36,30 @@ class AddExpenseForm(forms.ModelForm):
 
 class AddFriendForm(forms.ModelForm):
     first_name = forms.CharField(max_length = 50)
+    friendof = forms.CharField(max_length = 50) 
     last_name = forms.CharField(max_length = 50)
     twitter_username = forms.CharField(max_length = 50)
-    friendof = forms.CharField(max_length = 50) 
     class Meta:
         model = Friends
         fields = ('twitter_username',)
-    def clean_twitter_username(self):
+    def clean_friendof(self):
         twitter_username = self.cleaned_data["twitter_username"]
         try:
-            friend = Friends.objects.get(twitter_user = twitter_username)
+            friend = Friends.objects.filter(twitter_user = twitter_username)
+            user = User.objects.get(username = str(self.cleaned_data["friendof"]))
+            for f in friend:
+                if f.friendof.username == user.username:
+                    raise forms.ValidationError(_("A friend with same twitter username already exists as your friend"))
+            return self.cleaned_data["friendof"]
         except Friends.DoesNotExist:
-            return twitter_username
-        raise forms.ValidationError(_("A friend with same twitter username already exists. "))
+            return self.cleaned_data["friendof"]
 
     def save(self, commit=True):
         friend = super(AddFriendForm,self).save(commit=False)
         friend.first=(self.cleaned_data["first_name"])
         friend.last = (self.cleaned_data["last_name"])
         friend.twitter_user = (self.cleaned_data["twitter_username"])
-        friend.friendof = User.objects.get(username = self.cleaned_data["friendof"])
-        print friend.friendof
+        friend.friendof = User.objects.get(username = str(self.cleaned_data["friendof"]))
         if commit:
             friend.save()
         return friend

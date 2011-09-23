@@ -6,10 +6,11 @@ class Friends(models.Model):
     friendof = models.ForeignKey(User)
     first = models.CharField(max_length = 50)
     last = models.CharField(max_length = 50)
-    twitter_user = models.CharField(max_length = 50,unique=True)
+    twitter_user = models.CharField(max_length = 50)
 
 class BorrowList(models.Model):
     friend = models.ForeignKey(Friends)
     amount = models.IntegerField()
     time = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField()
+    
