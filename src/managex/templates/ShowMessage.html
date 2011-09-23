@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+	{% include "navigation.html" %}
+
+		<!-- To Show Various Messages	-->
+<div id="showMessage" class ="frame">
+    <div id="message-box-h" class="content-box" >
+      <div class="message-box-hdr"><h1>{{msg_heading}}</h1></div>
+      <div class="message-box">{{msg_html}} </div>
+      <p>&nbsp;</p>
+    </div>
+  </div>
+{% endblock %}

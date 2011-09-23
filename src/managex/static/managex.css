@@ -1,0 +1,293 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, textarea, p, blockquote, th, td {margin: 0; padding: 0;}
+table {border-collapse: collapse; border-spacing: 0;}
+fieldset, img {border: 0;}
+address, caption, cite, code, dfn, em, strong, th, var {font-style: normal;}
+ol, ul {list-style: none;}
+caption, th {text-align: left;}
+h1, h2, h3, h4, h5, h6 {font-size: 100%; font-weight:bold;}
+q:before, q:after {content: '';}
+abbr, acronym {border: 0;}
+
+
+body {
+    font: 62.5% Verdana;
+	background-color:#FEFEFE;
+	
+}
+
+body a {
+  color: inherit;
+}
+
+/* clearfix is used for forms */
+.clearfix:after { 
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.clearfix {
+	display:inline;
+}
+
+* html .clearfix {height: 1%;}
+
+.clearfix {
+	display:block;
+	outline-style:none;
+}
+
+/* used for setting the width of the page */
+.frame {
+	width: 800px;
+	margin: 0 auto;
+}
+/* base.html footer on every page */
+.footer_base {
+	width: 100%;
+}
+
+/* error attributes on forms*/
+.error {
+  padding: 10px !important;
+  background-color: #EEC7C7;
+  font-size: 1.1em;
+  font-style: italic;
+  margin: 10px !important;
+}
+
+/* hidden classes */
+.hide{
+	display:none;
+}
+.content-box{
+    font-size:14px;
+    display:block;
+    padding-bottom:50px
+    text-align:center;
+    background-color:#EEEEEE;
+    margin-bottom:70px;
+    margin-top:51px;
+    padding-top:50px;
+}
+.message-box-hdr h1{
+    font-size: 2.4em;
+    font-weight:bold;
+    text-align: center;
+    padding: 30px;
+    padding-top: 40px;
+    color: #000000;
+}
+.message-box{
+    font-size:12px;
+    text-align:center;
+    margin-bottom:40px;
+}
+/* help container characteristics*/
+.accordion {
+	width: 600px;
+	border-bottom: solid 1px #c4c4c4;
+	margin-bottom:80px;
+	margin-top:0px;
+}
+
+/* help sub-header */
+.accordion h3 {
+	background: #e9e7e7;
+	padding: 7px 15px;
+	margin: 0;
+	font: bold  Arial, Helvetica, sans-serif;
+	border: solid 1px #c4c4c4;
+	border-bottom: none;
+	cursor: pointer;
+	font-size:1.4em;
+}
+
+/* help subheader on mouse hover */
+.accordion h3:hover {
+	background-color: #e3e2e2;
+}
+
+/* help sub-header on click */
+.accordion h3.active {
+	background-position: right 5px;
+}
+
+/* preformatted help text */
+.accordion pre{
+	background: #f7f7f7;
+	margin: 0;
+	border-right: solid 1px #c4c4c4;
+	border-left: solid 1px #c4c4c4;
+	padding: 10px 15px 20px;
+	overflow: auto;
+	white-space: pre-wrap;
+	font-family: Verdana, Arial, sans serif;
+	font-size:1.3em;
+}
+
+
+/* base.html header class */
+#header {
+    padding-bottom: 25px;
+    border-bottom: 4px solid #497A32;
+	background-color:#4D8433;
+	height:60px;
+	margin-bottom: 30px;
+		
+}
+
+/* base logo for pyCourt */
+#img_header{
+	background-color:#4D8433;
+	float:center;
+}
+
+
+
+/* form label characteristics */
+#username label{
+	margin-right:70px;
+}
+
+#password label{
+	margin-right:73px;
+}
+
+
+/* login-signup form div box background */
+#login-signup {
+  background-color: #EEEEEE;
+}
+
+
+/* authuentication form background */
+#auth-page {
+  padding: 50px 0;
+}
+/* auth page and login-signup page charateristics */
+#auth-page #login-signup {
+  width: 296px;
+  margin: 0 auto;
+}
+
+/* login-signup subheading */
+#login-signup h3 {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #474747;
+  padding: 20px;
+}
+
+/* login signup anchor tag */
+#login-signup h3 a {
+  color: #528936;
+  text-decoration: none;
+}
+
+/* login signup span class */
+#login-signup h3 span {
+  background: url('/pycourt/login-active.gif') bottom center no-repeat;
+  padding-bottom: 14px;
+}
+
+/* login signup on hover */
+#login-signup h3 a:hover {
+  color: #416D2A;
+}
+
+/* login-signup container */
+#login-signup div {
+  padding: 5px 10px;
+  margin: 0 10px;
+}
+
+/* login-signup label characteristics */
+#login-signup label {
+  float: left;
+  width: 100px;
+  font-size: 1.4em;
+  padding-top: 4px;
+}
+
+/* login signup input box */
+#login-signup input {
+  float: left;
+  width: 149px;
+}
+
+/* login signup on submit charactristic change */
+#login-signup div.submit {
+  padding: 0;
+  padding-left: 214px;
+ }
+
+/* login signup container on sibmit input box */
+#login-signup div.submit input {
+  	width: auto;
+    margin-bottom: 20px;
+}
+
+/* logout message box characteristics */
+#logout{
+	font-size:14px;
+	display:block;
+	padding-bottom:140px;
+	text-align:center;
+	background-color:#EEEEEE;
+	padding-top:100px;
+}
+/* base.html footer characteristics */
+#footer {
+    font-style: italic;
+    color: #8D8D8D;
+    font-size: 1.1em;
+    padding-bottom: 15px;
+	width: 100%;
+	text-align: center;
+}
+
+#footer a {
+    color: #8D8D8D;
+}
+
+#footer a:hover {
+    color: #000;
+}
+
+#footer-inner {
+    background-color: #EEEEEE;
+    padding: 10px;
+	width: 100%;
+}
+
+
+/* sub footer characteristics */
+#sub-footer {
+  height: 99px;
+  background-color: #487858;
+  color: #FFF;
+}
+
+#sub-footer h3 {
+  font-size: 1.6em;
+  padding: 15px;
+}
+
+/* header characteristics */
+#header1{
+	margin-top: 1px;
+}
+
+/* Showmessage properties */
+#showMessage{
+    margin-bottom:60px;
+}
+
+#message-box-h{
+    background-color:#EEEEEE;
+    margin-top:70px;
+}
+
