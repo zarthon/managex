@@ -127,6 +127,14 @@ body a {
 	font-family: Verdana, Arial, sans serif;
 	font-size:1.3em;
 }
+.utilities1{
+    background-color:#EEEEEE;
+    margin-left:33px;
+    padding:3px; 
+    font-size:1.3em; 
+    padding-bottom:20px;
+    margin-right:38px
+}
 
 .utilities{
     background-color:#EEEEEE;
@@ -245,44 +253,7 @@ body a {
 	background-color:#EEEEEE;
 	padding-top:100px;
 }
-/* base.html footer characteristics */
-#footer {
-    font-style: italic;
-    color: #8D8D8D;
-    font-size: 1.1em;
-    padding-bottom: 15px;
-	width: 100%;
-	text-align: center;
-}
-
-#footer a {
-    color: #8D8D8D;
-}
-
-#footer a:hover {
-    color: #000;
-}
-
-#footer-inner {
-    background-color: #EEEEEE;
-    padding: 10px;
-	width: 100%;
-}
-
-
-/* sub footer characteristics */
-#sub-footer {
-  height: 99px;
-  background-color: #487858;
-  color: #FFF;
-}
-
-#sub-footer h3 {
-  font-size: 1.6em;
-  padding: 15px;
-}
-
-/* header characteristics */
+* header characteristics */
 #header1{
 	margin-top: 1px;
 }
