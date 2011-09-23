@@ -12,4 +12,4 @@ class BorrowList(models.Model):
     friend = models.ForeignKey(Friends)
     amount = models.IntegerField()
     time = models.DateTimeField(auto_now_add=True)
-
+    status = models.IntegerField()

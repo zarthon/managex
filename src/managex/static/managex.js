@@ -13,23 +13,24 @@ $(document).ready(function(){
     $('#summary img').bind("click",function(){
         var temp = $(this).attr('id')
         if(confirm("Are you sure you want to remove the oder")){
-           var called_obj = $(this)
-            jQuery.ajax({
+            var called_obj = $(this);
+            
+            $.ajax({
                 cache:"false",
                 url: "/removexpense",
                 type:"GET",
-                data:"id"=temp,
+                data:"id="+temp,
                 error:function(){
                     alert("Network Error. Could not Contact Server");
                 },
                 success:function(data){
-                    alert("asdasd");
+                    $('.'+temp+'row').hide();
                 },
             });
-            return true
+            return true;
         }
         else{
-            return false
+            return false;
         }
     })
 })

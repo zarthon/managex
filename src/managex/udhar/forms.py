@@ -6,7 +6,7 @@ from udhar.models import *
 class LoginForm(forms.Form):
     username = forms.CharField(max_length = 10)
     password = forms.CharField(widget = forms.PasswordInput)
-
+    
 class AddExpenseForm(forms.ModelForm):
     friend = forms.CharField(max_length = 50)
     amount = forms.IntegerField()
@@ -23,13 +23,14 @@ class AddExpenseForm(forms.ModelForm):
         return friend.twitter_user
 
     def save(self, commit=True):
-        friend = super(AddExpenseForm,self).save(commit=False)
-        friend.amount = int(self.cleaned_data["amount"])
+        expense = super(AddExpenseForm,self).save(commit=False)
+        expense.amount = int(self.cleaned_data["amount"])
         print self.cleaned_data["friend"]
-        friend.friend = Friends.objects.get(twitter_user = self.cleaned_data["friend"])
+        expense.friend = Friends.objects.get(twitter_user = self.cleaned_data["friend"])
+        expense.status = 0
         if commit:
-            friend.save()
-        return friend
+            expense.save()
+        return expense 
 
 
 class AddFriendForm(forms.ModelForm):

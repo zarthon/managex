@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
+{% if user.is_authenticated %}
 	{% include "navigation.html" %}
-
+    {% endif %}
 		<!-- To Show Various Messages	-->
 <div id="showMessage" class ="frame">
     <div id="message-box-h" class="content-box" >

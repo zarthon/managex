@@ -16,6 +16,7 @@ urlpatterns = patterns('managex.udhar',
     url(r'^addfriend','views.addFriend'),
     url(r'^addexpense','views.addExpense'),
     url(r'^removexpense','views.removeExpense'),
+    url(r'^history','views.expenseHistory'),
 )
 
 urlpatterns += patterns('',(r'^managex/(?P<path>.*)$', 'django.views.static.serve', {'document_root':settings.MEDIA_ROOT}),)
