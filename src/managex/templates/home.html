@@ -11,7 +11,7 @@
     <div class="current" class="clearfix" style="margin-top:30px;">
     <div class="accordion">
         {% for key, value in  wall.items %}
-        <h3 id="{{ key.0 }}@{{ key.1 }}">{{ key.0 }} ({{ key.1 }})</h3>
+        <h3 id="{{ key.0 }}@{{ key.1 }}">You owe "{{ key.0 }}" ({{ key.2 }}) Rs.({{ key.1 }}) </h3>
         <pre>
         <table id="summary" cellspacing="1" cellpadding="2" border="0" width="100%">
         <col width=30% /><col width=40% /> {% if not history %}<col width=20% /><col width=10%>{% endif %}

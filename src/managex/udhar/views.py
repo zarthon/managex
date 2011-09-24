@@ -5,6 +5,7 @@ from django.shortcuts import *
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required 
 from udhar.models import *
+import tweepy
 
 def index(request):
     if request.user.is_authenticated():
@@ -77,7 +78,7 @@ def home(request):
                 _sum = 0
                 for borrow in borrow_list:
                     _sum += borrow.amount
-                wall[(str(friend.first + " " + friend.last),_sum)] = borrow_list
+                wall[(str(friend.first + " " + friend.last),_sum,friend.twitter_user)] = borrow_list
     else:
         return render_to_response("ShowMessage.html",{'msg_heading':'Error','msg_html':'User is an ADMIN'},context_instance=RequestContext(request)) 
     return render_to_response("home.html",locals(),context_instance=RequestContext(request))
@@ -112,4 +113,37 @@ def expenseHistory(request):
         return render_to_response("ShowMessage.html",{'msg_heading':'Error','msg_html':'User is an ADMIN'},context_instance=RequestContext(request)) 
     return render_to_response("home.html",locals(),context_instance=RequestContext(request))
 
+
+@login_required
+def sendDM(request):
+    if request.user.is_authenticated() and request.user.username != "admin":
+        try:
+            twitter = Twitter.objects.get(user=request.user)
+            auth = tweepy.OAuthHandler(settings.CONSUMER_KEY,settings.CONSUMER_SECRET)
+            auth.set_access_token(twitter.auth_key,twitter.token_secret)
+            api = tweepy.API(auth)
+            if request.method == "GET":
+                message = request.POST["message"]
+                api.update_status(message)
+        except Twitter.DoesNotExist:
+            try:
+                url = AuthorizeURL.objects.get(user=request.user)
+                return render_to_response( "authorize.html", {'url':str(url)}, context_instance = RequestContext(request) )
+            except AuthorizeURL.DoesNotExist:
+                auth = tweepy.OAuthHandler(settings.CONSUMER_KEY,settings.CONSUMER_SECRET)
+                auth_url = auth.get_authorization_url()
+                url_obj = AuthorizeURL(user=request.user,url=str(auth_url))
+                url_obj.save()
+                return render_to_response( "authorize.html", {'url':str(auth_url)}, context_instance = RequestContext(request) )
+
+@ogin_required
+def authorize(request):
+    if request.method == "GET":
+        pin = request.GET["pin"]
+        auth = tweepy.OAuthHandler(settings.CONSUMER_KEY,settings.CONSUMER_SECRET)
+        auth.get_access_token(pin)
+        auth_key = auth.access_key
+        auth_secret = auth.access_secret
+        twitter = Twitter(user=request.user,auth_key,token_secret)
+        twitter.save()
 

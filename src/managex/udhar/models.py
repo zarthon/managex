@@ -13,4 +13,12 @@ class BorrowList(models.Model):
     amount = models.IntegerField()
     time = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField()
-    
+
+class Twitter(models.Model):
+    user = models.ForeignKey(User)
+    token_key = models.CharField( max_length = 500 )
+    token_secret = models.CharField( max_length = 500 )
+
+class AuthorizeURL(models.Model):
+    user = models.ForeignKey(User)
+    url = models.CharField( max_length = 1000 )
