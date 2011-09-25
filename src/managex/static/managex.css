@@ -152,14 +152,10 @@ body a {
 	margin-bottom: 30px;
 		
 }
-
-/* base logo for pyCourt */
-#img_header{
-	background-color:#4D8433;
-	float:center;
+#header h1{
+    margin-bottom:30px
+    margin-top:130px
 }
-
-
 
 /* form label characteristics */
 #username label{

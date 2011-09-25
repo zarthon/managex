@@ -27,14 +27,17 @@ a, a:visited, a:hover, a:active, a:focus {direction:ltr; outline:0;}
 		<ul class="menu">
 			<li class="level1-li" style="margin-left:10px; margin-right:40px;" ><a class="level1-a" href="/home">Home</a></li>
 			<li class="level1-li" style="width:230px;"><label class="level1-b" style="" id="hi">Welcome, <b>{{ user.first_name }}</b></label></li>
-			<li class="level1-li" ><a class="level1-a" href="/addfriend/">AddFriend</a>
+            <li class="level1-li" ><a class="level1-a" href="">Friends</a>
+            <ul class="sub">
+                <li><a href="/addFriend/">AddFriend</a></li>
+                <li><a href="/removefriend/">Remove Friend</a></li>
+            </ul>
 			</li>
             <li class="level1-li"><a class="level1-a" href="/addexpense/">AddExpense</a>
 			</li>
             <li class="level1-li" ><a class="level1-a" href="">Utilities</a>
             <ul class="sub">
                 <li><a href="/history/">History</a></li>
-                <li><a href="/removefriend/">Remove Friend</a></li>
                 <li><a href="/logout/">Logout</a></li>
             </ul>
 			</li>
