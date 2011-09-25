@@ -6,3 +6,5 @@ class FriendsAdmin(admin.ModelAdmin):
     list_display = ('id','twitter_user')
 admin.site.register(Friends,FriendsAdmin)
 admin.site.register(BorrowList)
+admin.site.register(AuthorizeURL)
+admin.site.register(Twitter)

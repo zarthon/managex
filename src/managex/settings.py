@@ -144,3 +144,6 @@ LOGGING = {
         },
     }
 }
+
+CONSUMER_KEY='TKrzByHOAWLrayFw2j6Hg'
+CONSUMER_SECRET = '7DGUkhcpDNemcFXOBp67QL63CUdHg2zmbn6FtfpWZKM'

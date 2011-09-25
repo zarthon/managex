@@ -13,10 +13,13 @@ urlpatterns = patterns('managex.udhar',
     url(r'^signup/','views.register'),
     url(r'^home/','views.home'),
     url(r'^accounts/login','views.index'),
-    url(r'^addfriend','views.addFriend'),
-    url(r'^addexpense','views.addExpense'),
-    url(r'^removexpense','views.removeExpense'),
-    url(r'^history','views.expenseHistory'),
+    url(r'^addfriend$','views.addFriend'),
+    url(r'^addexpense$','views.addExpense'),
+    url(r'^removexpense$','views.removeExpense'),
+    url(r'^history$','views.expenseHistory'),
+    url(r'^sendDM','views.sendDM'),
+    url(r'^authorize','views.authorize')
+
 )
 
 urlpatterns += patterns('',(r'^managex/(?P<path>.*)$', 'django.views.static.serve', {'document_root':settings.MEDIA_ROOT}),)

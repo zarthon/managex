@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from udhar.models import *
 import tweepy
 
+#GLOBAL setting
+AUTH = {}
 def index(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/home')
@@ -116,34 +118,46 @@ def expenseHistory(request):
 
 @login_required
 def sendDM(request):
+    global AUTH
+    print "Inside sendm"
     if request.user.is_authenticated() and request.user.username != "admin":
         try:
+            print "Phase One"
             twitter = Twitter.objects.get(user=request.user)
             auth = tweepy.OAuthHandler(settings.CONSUMER_KEY,settings.CONSUMER_SECRET)
-            auth.set_access_token(twitter.auth_key,twitter.token_secret)
+            auth.set_access_token(twitter.token_key,twitter.token_secret)
             api = tweepy.API(auth)
             if request.method == "GET":
-                message = request.POST["message"]
+                message = request.GET["message"]
                 api.update_status(message)
+                return HttpResponse("Posted Successfully")
         except Twitter.DoesNotExist:
             try:
+                print "Phase 2"
                 url = AuthorizeURL.objects.get(user=request.user)
-                return render_to_response( "authorize.html", {'url':str(url)}, context_instance = RequestContext(request) )
+                return render_to_response( "authorize.html", {'url':str(url.url)}, context_instance = RequestContext(request) )
             except AuthorizeURL.DoesNotExist:
+                print "Phase 3"
                 auth = tweepy.OAuthHandler(settings.CONSUMER_KEY,settings.CONSUMER_SECRET)
                 auth_url = auth.get_authorization_url()
+                print auth_url
+                AUTH[str(request.user.username)] = auth
                 url_obj = AuthorizeURL(user=request.user,url=str(auth_url))
                 url_obj.save()
+                print "Phase 4"
                 return render_to_response( "authorize.html", {'url':str(auth_url)}, context_instance = RequestContext(request) )
 
-@ogin_required
+@login_required
 def authorize(request):
-    if request.method == "GET":
-        pin = request.GET["pin"]
-        auth = tweepy.OAuthHandler(settings.CONSUMER_KEY,settings.CONSUMER_SECRET)
-        auth.get_access_token(pin)
-        auth_key = auth.access_key
-        auth_secret = auth.access_secret
-        twitter = Twitter(user=request.user,auth_key,token_secret)
+    if request.method == "POST":
+        pin = request.POST["pin"]
+        print AUTH
+        auth = AUTH[str(request.user.username)]
+        print "heelll"
+        auth.get_access_token(str(pin))
+        auth_key = auth.access_token.key
+        auth_secret = auth.access_token.secret
+        print "halle"
+        twitter = Twitter(user=request.user,token_key=auth_key,token_secret=auth_secret)
         twitter.save()
-
+        return HttpResponseRedirect("/home")

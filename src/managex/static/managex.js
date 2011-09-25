@@ -21,7 +21,7 @@ $(document).ready(function(){
                 type:"GET",
                 data:"id="+temp,
                 error:function(){
-                    alert("Network Error. Could not Contact Server");
+                    apprise("Network Error. Could not Contact Server");
                 },
                 success:function(data){
                     $('.'+temp+'row').hide();
@@ -32,5 +32,28 @@ $(document).ready(function(){
         else{
             return false;
         }
+    })
+
+    $('.authorize_url').bind("click",function(){
+        var temp = $(this).attr("id");
+        apprise('Enter the Message?',{'input':true},function(r){
+            if(r){
+                $.ajax({
+                    cache:"false",
+                    url:"/sendDM",
+                    type:"GET",
+                    data:"message="+r,
+                    error:function(){
+                        apprise("Network Error. Could not Contact Server");
+                    },
+                    success:function(data){
+                        apprise(data);
+                    }
+                })         
+            }
+            else{
+                return false;
+            }
+        });
     })
 })

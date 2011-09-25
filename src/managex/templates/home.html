@@ -13,13 +13,15 @@
         {% for key, value in  wall.items %}
         <h3 id="{{ key.0 }}@{{ key.1 }}">You owe "{{ key.0 }}" ({{ key.2 }}) Rs.({{ key.1 }}) </h3>
         <pre>
+        {% if value %}
+        <a href="#" id = "{{ key.2 }}authorize_url" class="authorize_url">Send DM</a>
+        {% endif %}
         <table id="summary" cellspacing="1" cellpadding="2" border="0" width="100%">
-        <col width=30% /><col width=40% /> {% if not history %}<col width=20% /><col width=10%>{% endif %}
+        <col width=30% /><col width=40% /> {% if not history %}<col width=30%>{% endif %}
         {% for val in value %}
         <tr class="{{val.id}}row" id="{{val.id}}row"><td>{{ val.amount }}</td>
         <td> {{ val.time}}</td>
         {% if not history%}
-        <td>Send DM</td>
         <td><img src="/managex/remove.png" id="{{val.id}}" alt="remove" title="Remove" ></td>
         {% endif %}
         </tr>
