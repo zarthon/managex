@@ -110,7 +110,7 @@ def expenseHistory(request):
                 _sum = 0
                 for borrow in borrow_list:
                     _sum += borrow.amount
-                wall[(str(friend.first + " " + friend.last),_sum)] = borrow_list
+                wall[(str(friend.first + " " + friend.last),_sum,str(friend.twitter_user))] = borrow_list
     else:
         return render_to_response("ShowMessage.html",{'msg_heading':'Error','msg_html':'User is an ADMIN'},context_instance=RequestContext(request)) 
     return render_to_response("home.html",locals(),context_instance=RequestContext(request))
@@ -129,8 +129,9 @@ def sendDM(request):
             api = tweepy.API(auth)
             if request.method == "GET":
                 message = request.GET["message"].split("@")
+                print message
                 try:
-                    temp = api.get_user(message[1])
+                    temp = api.get_user(str(message[1]))
                     print temp.id
                     api.send_direct_message(user_id = temp.id, text=message[0])
                 except:
@@ -169,3 +170,14 @@ def authorize(request):
         twitter = Twitter(user=request.user,token_key=auth_key,token_secret=auth_secret)
         twitter.save()
         return HttpResponseRedirect("/home")
+
+@login_required
+def removeFriend(request):
+    if request.method == "POST":
+        friend_user = request.POST["friend"].split("@");
+        friend = Friends.objects.get(friendof=request.user, twitter_user = str(friend_user[0]),id=int(friend_user[1]))
+        friend.delete()
+        return HttpResponseRedirect("/home")
+    else:
+        friends = Friends.objects.filter(friendof=request.user)
+        return render_to_response("removefriend.html",{'friends':friends},context_instance=RequestContext(request))

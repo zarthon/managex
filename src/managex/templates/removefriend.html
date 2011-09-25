@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+{% include "navigation.html" %}
+{% endif %}
+<div id="auth-page" style="margin-top:60px">
+    <b><label style = "background-color:#EEEEEE; margin-left:33px; padding:10px; font-size:1.3em; ">Remove Friend</label></b>
+    <form action="/removefriend/" method="post" id="removeFriend_form">
+        {% csrf_token %}
+        <div id="removefriend-name" id="friend" class="utilities"><label>Friend:</label>
+            <select name="friend" for="friend" id="friend">
+                {% for friend in friends %}
+                <option value="{{ friend.twitter_user }}@{{ friend.id }}">{{ friend.twitter_user }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div id="remove-submit" class="utilities clearfix">
+            <input type="submit" value="Remove" class="submit" id="removeFriend"/>
+        </div>
+    </form>
+    {% endblock %}
+

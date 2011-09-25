@@ -18,7 +18,8 @@ urlpatterns = patterns('managex.udhar',
     url(r'^removexpense/$','views.removeExpense'),
     url(r'^history/$','views.expenseHistory'),
     url(r'^sendDM','views.sendDM'),
-    url(r'^authorize','views.authorize')
+    url(r'^authorize','views.authorize'),
+    url(r'^removefriend','views.removeFriend')
 
 )
 

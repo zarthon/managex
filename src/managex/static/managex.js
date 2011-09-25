@@ -56,5 +56,14 @@ $(document).ready(function(){
                 return false;
             }
         });
-    })
+    });
+
+    $("#removeFriend").bind("click",function(){
+        if(confirm("Are you sure you want to remove the friend ? ")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    });
 })
