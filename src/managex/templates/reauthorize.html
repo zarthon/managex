@@ -1,11 +1,16 @@
+{% extends "base.html" %}
+
 {% block content %}
+{% if user.is_authenticated %}
+{% include "navigation.html" %}
+{% endif %}
 <div id="auth-page" style="margin-top:60px">
     <b><label style = "background-color:#EEEEEE; margin-left:33px; padding:10px;
             font-size:1.3em;">Authorize</label></b><br>
     <form action=/authorize/ method="post" id="authorize-form">    
         {% csrf_token %}
         <div class="utilities"><b> The current message will not be posted as You are not authorized </b></div>
-        <div class="utilities"> Please authorize by clicking  <a href={{ url }} target="_blank"> here</a>. </div>
+        <div class="utilities"> Please authorize by going to following url: <a href={{ url }} target="_blank"> {{ url }}</a> </div>
         <div class="utilities"><label>Pin: </label><input id="pin" type="int" name="pin" /></div>
         <div class-"utilities"><input type="submit" value="Authorize" class="submit"></div>
 </form>
