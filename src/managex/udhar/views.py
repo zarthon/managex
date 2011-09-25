@@ -129,7 +129,12 @@ def sendDM(request):
             api = tweepy.API(auth)
             if request.method == "GET":
                 message = request.GET["message"].split("@")
-                api.update_status("@"+message[1]+" "+message[0])
+                try:
+                    temp = api.get_user(message[1])
+                    print temp.id
+                    api.send_direct_message(user_id = temp.id, text=message[0])
+                except:
+                    return HttpResponse("Invalid User")
                 return HttpResponse("Posted Successfully")
         except Twitter.DoesNotExist:
             try:
