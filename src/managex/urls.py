@@ -19,7 +19,8 @@ urlpatterns = patterns('managex.udhar',
     url(r'^history/$','views.expenseHistory'),
     url(r'^sendDM','views.sendDM'),
     url(r'^authorize','views.authorize'),
-    url(r'^removefriend','views.removeFriend')
+    url(r'^removefriend','views.removeFriend'),
+    url(r'^reauthorize','views.reAuthorize'),
 
 )
 

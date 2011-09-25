@@ -167,7 +167,12 @@ def authorize(request):
         auth_key = auth.access_token.key
         auth_secret = auth.access_token.secret
         print "halle"
-        twitter = Twitter(user=request.user,token_key=auth_key,token_secret=auth_secret)
+        try:
+            twitter = Twitter.objects.get(user=request.user)
+            twitter.token_key = auth_key
+            twitter.token_secret = auth_secret
+        except Twitter.DoesNotExist:
+            twitter = Twitter(user=request.user,token_key=auth_key,token_secret=auth_secret)
         twitter.save()
         return HttpResponseRedirect("/home")
 
@@ -181,3 +186,29 @@ def removeFriend(request):
     else:
         friends = Friends.objects.filter(friendof=request.user)
         return render_to_response("removefriend.html",{'friends':friends},context_instance=RequestContext(request))
+
+@login_required
+def reAuthorize(request):
+    global AUTH
+    print "Inside re"
+    if request.user.is_authenticated() and request.user.username != "admin":
+        try:
+            twitter = Twitter.objects.get(user=request.user)
+            auth = tweepy.OAuthHandler(settings.CONSUMER_KEY,settings.CONSUMER_SECRET)
+            try:
+                url = AuthorizeURL.objects.get(user=request.user)
+                auth_url = auth.get_authorization_url()
+                AUTH[str(request.user.username)] = auth
+                url.url = auth_url
+                url.save()
+                return render_to_response( "reauthorize.html", {'url':str(url.url)}, context_instance = RequestContext(request) )
+            except AuthorizeURL.DoesNotExist:
+                auth_url = auth.get_authorization_url()
+                AUTH[str(request.user.username)] = auth
+                url_obj = AuthorizeURL(user=request.user,url=str(auth_url))
+                url_obj.save()
+                return render_to_response( "reauthorize.html", {'url':str(auth_url)}, context_instance = RequestContext(request) )
+        except Twitter.DoesNotExist:
+            return render_to_response("ShowMessage.html",{'msg_heading':'Error','msg_html':'You have not authorize your account, authorize it by sending a mesage to any friend'},context_instance=RequestContext(request))
+            
+
