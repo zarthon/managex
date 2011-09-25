@@ -36,13 +36,14 @@ $(document).ready(function(){
 
     $('.authorize_url').bind("click",function(){
         var temp = $(this).attr("id");
+        var username=temp.split("@");
         apprise('Enter the Message?',{'input':true},function(r){
             if(r){
                 $.ajax({
                     cache:"false",
                     url:"/sendDM",
                     type:"GET",
-                    data:"message="+r,
+                    data:"message="+r+"@"+username[0],
                     error:function(){
                         apprise("Network Error. Could not Contact Server");
                     },

@@ -128,8 +128,8 @@ def sendDM(request):
             auth.set_access_token(twitter.token_key,twitter.token_secret)
             api = tweepy.API(auth)
             if request.method == "GET":
-                message = request.GET["message"]
-                api.update_status(message)
+                message = request.GET["message"].split("@")
+                api.update_status("@"+message[1]+" "+message[0])
                 return HttpResponse("Posted Successfully")
         except Twitter.DoesNotExist:
             try:
@@ -154,7 +154,10 @@ def authorize(request):
         print AUTH
         auth = AUTH[str(request.user.username)]
         print "heelll"
-        auth.get_access_token(str(pin))
+        try:
+            auth.get_access_token(str(pin))
+        except:
+            return render_to_response("ShowMessage.html", {'msg_heading':"Error", 'msg_html':"Incorrect Pin" }, context_instance=RequestContext(request))
         auth_key = auth.access_token.key
         auth_secret = auth.access_token.secret
         print "halle"
