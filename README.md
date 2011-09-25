@@ -1,6 +1,6 @@
 ManageX
 ========
-A simple expenses management web application 
+A simple udhar management web application 
 
 Author
 -------
@@ -17,7 +17,7 @@ Requirements
 
 Description
 ===========
-It is a simple expenses management system mainly made for collge usage, the functionalities supported by it are as follows
+It is a udhar management system mainly made for collage usage, the functionalities supported by it are as follows
 
 * Register New user
 * Add friend with Twitter Handle
