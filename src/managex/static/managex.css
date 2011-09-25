@@ -153,8 +153,11 @@ body a {
 		
 }
 #header h1{
-    margin-bottom:30px
-    margin-top:130px
+    font-size:400%;
+    font-style: italic;
+    font-family:"Times New Roman",Georgia,Serif;
+    color:#FFF0FF;
+    margin-left:40%;
 }
 
 /* form label characteristics */
@@ -199,7 +202,7 @@ body a {
 
 /* login signup span class */
 #login-signup h3 span {
-  background: url('/pycourt/login-active.gif') bottom center no-repeat;
+  background: bottom center no-repeat;
   padding-bottom: 14px;
 }
 
